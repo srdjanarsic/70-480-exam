@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function(){
+
+            var el;
+            var els;
+
+            // select
+            alert("----SELECT----");
+            el = document.getElementById("innerDiv");
+            alert(el.innerHTML);
+
+            els = document.getElementsByClassName("mainPara")
+            alert(els.length);
+
+            els = document.getElementsByTagName("input");
+            alert(els.length);
+
+            el = document.querySelector("#outerDiv");
+            alert(el.innerHTML);
+
+            els = document.querySelectorAll("div")
+            alert(els.length);
+
+            //remove
+            alert("----REMOVE----");
+            var element = document.getElementById("innerDiv");
+            alert(element.innerHTML);
+            element.parentNode.removeChild(element);
+            var afterRemove = document.getElementById("innerDiv");
+            alert(afterRemove);
+
+            // createElement appendChild
+            var outerEl = document.getElementById("outerDiv");
+            var articleEl = document.createElement("article");
+            articleEl.innerText = "This is NEW <article>";
+            outerEl.appendChild(articleEl);
+
+            // insertBefore
+            var pEl = document.querySelector(".secPara");
+            var newpEl = document.createElement("p");
+            newpEl.innerText = "This is NEW 2 <p>";
+            pEl.parentNode.insertBefore(newpEl, pEl);
+
+            // hasChildNodes, firstChild, lastChild
+            alert("---hasChildNodes, firstChild, lastChild---");
+            var pEl = document.querySelector(".emptyDiv");
+            alert(pEl.hasChildNodes());
+            alert(pEl.firstChild);
+            alert(pEl.firstChild.hasChildNodes());
+            alert(pEl.firstChild.firstChild);
+            
+            //throw 
+            var imgEl = document.querySelector(".imageClass");
+            alert(imgEl);
+            imgEl.appendChild(document.createElement("article"));
+
+            // IE ONLY !!!
+            //var mainParaEl = document.querySelector(".mainPara")
+            //alert(mainParaEl)
+            //console.log(mainParaEl)
+            //mainParaEl.removeNode(true);
+
+            var innerDiv = document.getElementById("div2");
+            var newDiv = document.createElement("div");
+            for (var i = 0; i < innerDiv.childNodes.length; i++) {
+                var anchor = newDiv.appendChild(document.createElement("a"));
+                anchor.setAttribute("href", "http://www.bing.ca");
+                anchor.text = innerDiv.childNodes[i].textContent;
+                newDiv.appendChild(document.createElement("br"));
+            }
+            innerDiv.parentNode.replaceChild(newDiv, innerDiv);
+
+        }   
+    </script>
+
+</head>
+
+<body>
+    <div id="outerDiv">
+        <p class='mainPara'>Main Paragraph</p>
+        <p class='secPara'>Sec Paragraph</p>
+        <div class='emptyDiv'/>
+        <ul>
+            <li>First List Item</li>
+            <li>Second List Item</li>
+            <li>Third List Item</li>
+            <li>Fourth List Item</li>
+        </ul>
+        <div id="innerDiv">
+            <p class='subPara' id='P1'>Paragraph 1</p>
+            <p class='subPara' id='P2'>Paragraph 2</p>
+            <p class='subPara' id='P3'>Paragraph 3</p>
+            <p class='subPara' id='P4'>Paragraph 4</p>
+        </div>
+        <table>
+            <tr>
+                <td>Row 1
+                </td>
+            </tr>
+            <tr>
+                <td>Row 2
+                </td>
+            </tr>
+            <tr>
+                <td>Row 3
+                </td>
+            </tr>
+            <tr>
+                <td>Row 4
+                </td>
+            </tr>
+            <tr>
+                <td>Row 5
+                </td>
+            </tr>
+        </table>
+        <input type="text" />
+        <input type="submit" value="Submit" />
+        <img class="imageClass" src="img.jpg"/>
+        <div id="div2">
+            <p>Main Paragraph</p>
+            <p>Sec Paragraph</p>
+        </div>
+    </div>
+</body>
+
+</html>
