@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: green;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var canvasSurface = document.getElementById("canvasSurface");
+            var ctx = canvasSurface.getContext("2d");
+
+            /*ctx.beginPath();
+            ctx.moveTo(10, 10);
+            ctx.lineTo(225, 350);
+            ctx.stroke();*/
+
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "rgba(255,255,0,0.4)" //'#FFFF00';
+            ctx.lineCap = "butt" //(butt, round, square)|
+            ctx.lineJoin = "round" //(miter, bevel, round)
+            ctx.moveTo(10, 10);
+            ctx.lineTo(225, 350);
+            ctx.lineTo(300, 10);
+            ctx.lineTo(400, 350);
+            ctx.stroke();
+
+
+            ctx.beginPath();
+            ctx.arc(150, 100, 75, 0, 2 * Math.PI, false);
+            ctx.lineWidth = 25;
+            ctx.strokeStyle = '#0f0';
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(450, 100, 30, 1.5 * Math.PI, 2 * Math.PI, false);
+            ctx.lineWidth = 25;
+            ctx.strokeStyle = 'blue';
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(150, 300, 75, 1 * Math.PI, 1.5 * Math.PI, false);
+            ctx.lineWidth = 25;
+            ctx.strokeStyle = '#0ff';
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(450, 300, 75, .5 * Math.PI, 1 * Math.PI, false);
+            ctx.lineWidth = 25;
+            ctx.strokeStyle = '#f00';
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(10, 380);
+            ctx.quadraticCurveTo(300, -250, 580, 380);
+            ctx.lineWidth = 25;
+            ctx.strokeStyle = '#f00';
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(125, 20);
+            ctx.bezierCurveTo(0, 200, 300, 300, 50, 400);
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = '#f00';
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(300, 200, 75, 1.75 * Math.PI, 1.25 * Math.PI, false);
+            ctx.lineTo(150, 125);
+            ctx.quadraticCurveTo(300, 0, 450, 125);
+            ctx.lineTo(353, 144);
+            ctx.strokeStyle = "blue";
+            ctx.lineCap = "round";
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            // fill patern
+            var img = new Image();
+            img.src = "../media/arrow.png";
+            img.onload = function () {
+                ctx.beginPath();
+                ctx.lineWidth = 3;
+                ctx.rect(150, 150, 200, 125)
+                var pat = ctx.createPattern(this, "repeat");
+                ctx.fillStyle = pat;
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // draw image
+            var img2 = new Image();
+            img2.src = "../media/men.png";
+            img2.onload = function () {
+                ctx.beginPath();
+                //ctx.drawImage(this, 10, 10, 100, 200);
+                ctx.drawImage(this, 0, 30, 100, 100, 10, 10, 100, 200);
+                ctx.stroke();
+            }
+
+            ctx.font = "50px arial";
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "Red";
+            ctx.strokeText("3. Text with altered colored font", 100, 160);
+
+
+            ctx.font = "24px arial";
+            ctx.textAlign = "center";
+            ctx.fillStyle = "Blue";
+            ctx.fillText("Centered text!", canvasSurface.width / 2,
+                canvasSurface.height / 2);
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="canvasSurface" width="800" height="600">
+        Your browser does not support HTML5.
+    </canvas>
+</body>
+
+</html>

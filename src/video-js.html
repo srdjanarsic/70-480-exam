@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video control through JavaScript</title>
+</head>
+
+<head>
+    <style>
+        img:hover {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        var video;
+        window.onload = function () {
+            video = document.getElementById("sampleVideo");
+        }
+
+        function play() {
+            video.play();
+        }
+
+        function pause() {
+            video.pause();
+        }
+
+        function back() {
+            video.currentTime -= 10;
+        }
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <video  width="800" height="600" id="sampleVideo">
+                    <source src="../media/big_buck_bunny.mp4" type="video/mp4" />
+                </video>
+            </td>
+            <td>
+                <button onclick="back();">Back</button>
+                <br/>
+                <button onclick="play();">Play</button>
+                <br/>
+                <button onclick="pause();">Pause</button>
+                <br/>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

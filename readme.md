@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8"/>
   <title></title>
 </head>
 <body>
@@ -178,8 +178,169 @@ Commonly used properties
 
 #### Implementing media controls
 
-HTML5 `video` and `audio` elements.
+HTML5 `video` element
 
-#### Implementing graphics with HTML5 <canvas>
+```html
+<video src="video.mp4" controls poster="poster.jpg" width="800" height="600"></video>
+```
+Video attributes
+
+| Attribute        | Description |
+|------------------|-------------|
+| src              | local or external domain video source
+| autoplay         | auto play on page load
+| controls         | show controls
+| height/width     | set size, if omitted video displays in its original size
+| loop             | play video in loop
+| poster           | show poster, if not provided, first frame of video will be used
+
+Following example shows how to setup different video formats.
+
+```html
+<video controls width="800" height="600" poster="picture.jpg">
+    <source src="video.ogv" type="video/ogg"/>
+    <source src="video.mp4" type="audio/mp4"/>
+    <object>
+        <p>Video is not supported by this browser.</p>
+    </object>
+</video>
+```
+
+Browser goes through source list and use first it's able to play.
+
+|Video props/methods | Description |
+|--------------|-------------|
+| play()       | Plays the video from its current position.|
+| pause()      | Pauses the video at its current position.|
+| volume       | Allows the user to control the volume of the video.|
+| currentTime  | Represents the current position of the video. |
+
+HTML5 `audio` element
+
+Audio element has the same properties and methods, except it has no visual representation, only in case you setup controls.
+
+```html
+<audio controls>
+    <source src="audio.mp3" type="audio/mp3"/>
+    <source src="audio.ogg" type="audio/ogg"/>
+    <p>Your browser does not support HTML5 audio.</p>
+</audio>
+```
+
+#### Implementing graphics with HTML5 `<canvas>`
+
+You can draw lines, text, and images on the canvas and manipulate them with JavaScript.
+
+```html
+<canvas id="canvasSurface" width="800" height="600">
+    Your browser does not support HTML5.
+</canvas>
+```
+
+Top-left corner of the canvas is (0,0).
+
+```js
+window.onload = function () {
+    var canvasSurface = document.getElementById("canvasSurface");
+    var ctx = canvasSurface.getContext("2d");
+}
+```
+
+You get a reference to your canvas element followed by a reference to a "2d" context. The context is an object that provides the API methods you use to draw on the canvas. 
+
+Drawing lines
+
+| Method      | Description  |
+|-------------|--------------|
+| beginPath   | Resets/begins a new drawing path |
+| moveTo      | Moves the context to the point set in the beginPath method |
+| lineTo      | Sets the destination end point for the line |
+| stroke      | Strokes the line, which makes the line visible |
+| lineWidth   | Width of line |
+| strokeStyle | Line color - accept all html variation (e.g. "rgba(0,0,0,0.5)") |
+| lineCap | Line ends style (butt, round, square) |
+| lineJoin | Line joins style (miter, bevel, round) |
+
+Drawing curves
+
+| Method            | Description   |
+|-------------------|---------------|
+| arc               | Arc based on a starting and ending angle and a defined radius |
+| quadradicCurveTo  | Complex arc that allows you to control the steepness of the curve |
+| bezierCurveTo     | Complex arc that you can skew |
+
+Arc
+
+```js
+ctx.arc(x, y, radius, startAngle, endAngle, ccw);
+ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+ctx.bezierCurveTo(controlX, controlY, control2X, control2Y, endX, endY);
+ctx.rect(x, y, width, height);
+```
+
+Fill
+
+
+| Property/Method   | Description   |
+|-------------------|---------------|
+| fillStyle         | Fill style |
+| fill              | Fill using applied fill style |
+| fillRect          | Fill using applied fill style to provided rect bounds|
+
+```js
+// fill method
+ctxt.fillStyle = "blue";
+ctxt.fill();
+// special fill method for rect
+ctxt.fillStyle = "blue";
+ctxt.fillRect(x, y, width, height);
+```
+
+Gradient
+
+```js
+// create gradient
+ctx.createLinearGradient(x0, y0, x1, y1);
+ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
+// add gradiend point
+addColorStop(offset, color);
+// example
+var gradient = ctxt.createRadialGradient(200, 200,5, 250, 250,100);
+gradient.addColorStop(0, "Red");
+gradient.addColorStop(.5, "Orange");
+gradient.addColorStop(1, "Blue");
+ctxt.fillStyle = gradient;
+//
+```
+
+Pattern
+```js
+ctx.createPattern(image, repetition);
+//image: repeat, repeat-x, repeat-y, no-repeat
+```
+
+Draw image
+
+```js
+ctx.drawImage(image, dx, dy);
+ctx.drawImage(image, dx, dy, dWidth, dHeight);
+ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+```
+
+Drawing text
+
+```js
+// outline text
+ctxt.font = "24px arial";
+ctxt.strokeStyle = "Red";
+ctxt.strokeText("Red colored", 100, 100);
+// fill text
+ctxt.font = "24px arial";
+ctxt.textAlign = "center";
+ctxt.fillStyle = "Blue";
+ctxt.fillText("Centered text", canvas.width/2, canvas.height/2);
+```
+
+Conclusion: The canvas is a strong utility for presenting graphics dynamically in the browser.
 
 #### Scalable Vector Graphics (SVG)
