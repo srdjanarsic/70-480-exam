@@ -344,3 +344,47 @@ ctxt.fillText("Centered text", canvas.width/2, canvas.height/2);
 Conclusion: The canvas is a strong utility for presenting graphics dynamically in the browser.
 
 #### Scalable Vector Graphics (SVG)
+
+Scalable Vector Graphics (SVG) is an XML-based language for creating two-dimensional graphics. It’s implemented by using tags defined by the SVG XML namespace and embedded in HTML5 documents within opening and closing `<svg>` elements.
+
+```html
+<circle cx="50" cy="50" r="50" fill="green"/>
+<rect x="100" y="100" width="60" height="200" fill="black" />
+<circle cx="129" cy="265" r="25" fill="green" />
+<image href="../media/men.png" width="250" height="100" />
+<polygon points="10,15 30,35 10,85 100,85, 70,35,100,15" fill="purple" />
+<polyline points="10,150 30,170 50,132 62,196" style="stroke:orange; fill:none; stroke-width:5;" />
+<line x1="150" y1="100" x2="150" y2="150" style="stroke:blue;stroke-width:3" />
+<ellipse cx="250" cy="150" rx="30" ry="55" fill="green" />
+<text x="20" y="20" style="stroke: black;stroke-width:1;">Text</text>
+```
+
+### Objective 1.3: Apply styling to HTML elements programmatically
+
+Position
+
+```js
+img.style.position = "absolute"
+img.style.left = left.value + "px";
+img.style.top = top.value + "px";
+```
+
+Transform
+
+```js
+transform: scale(2);
+transform: rotate(90deg);
+transform: skew(10deg, 10deg);
+// multiply transform; NOTE: order mater
+transform: translate(50px,0px) scale(1.5) skew(10deg, 10deg);
+```
+
+Show/hide and visibility
+
+```js
+el.style.display = 'inline';  // none|inline|block
+el.style.visibility = 'visible'; // visible|hidden|collapse|inherit
+```
+
+`display=none` - doesn't preserve layout. elements is removed from layout, other element are rearranged.\
+`visibility=hidden` - preserve layout. just hide elements.

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            padding-top:100px;
+            padding-left:100px;
+        }
+
+        .trans {
+            transition-duration: 1s;
+            transform: translate(50px,0px) scale(1.5) skew(10deg, 10deg);
+            /*transform-origin: left top;*/
+            /*transform:scale(2) rotate(90deg);*/
+            /*transform:rotateX(45deg) rotateY(45deg) translate(50px,0px);*/
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            document.getElementById("men").onclick = function () {
+                this.classList.add("trans");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <img id="men" src="../media/men.png" style="position:relative" />
+</body>
+
+</html>

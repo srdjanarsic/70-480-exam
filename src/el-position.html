@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Element position</title>
+    <style>
+        img {
+            height: 150px;
+            width: 225px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var top = document.getElementById("topText");
+            var left = document.getElementById("leftText");
+            var pos = document.getElementById("positioning");
+            document.getElementById("btnPosition").onclick = function () {
+                var img = document.getElementById("orange2");
+                img.style.position = pos.value;
+                img.style.left = left.value + "px";
+                img.style.top = top.value + "px";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div style="position: absolute; right: 0px">Left:
+        <input type="text" id="leftText" />
+        <br/> Top:
+        <input type="text" id="topText" />
+        <br/> Position:
+        <select id="positioning">
+            <option>relative</option>
+            <option>absolute</option>
+        </select>
+        <br/>
+        <input type="button" id="btnPosition" value="Update" />
+    </div>
+    <div>
+        <img id="orange1" src="../media/men.png" />
+        <img id="orange2" src="../media/men.png" />
+    </div>
+
+</body>
+
+</html>
