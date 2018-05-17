@@ -388,3 +388,240 @@ el.style.visibility = 'visible'; // visible|hidden|collapse|inherit
 
 `display=none` - doesn't preserve layout. elements is removed from layout, other element are rearranged.\
 `visibility=hidden` - preserve layout. just hide elements.
+
+### 1.4: Implement HTML5 APIs
+
+#### Web Storage API
+
+Local `localStogare` and session `sessionStorage` storage exists.\
+**Local storage** is persistent.\
+**Session storage** is available only for the current session - until the user closes the browser.\
+The `localStorage` and `sessionStorage` objects provide exactly the same API.
+**Web Storage** is implemented as name-value pairs and stored as strings.
+ 
+| Method      | Description |
+|-------------|-------------|
+| setItem | Adds a key/value pair. |
+| getItem | Retrieves data from storage based on a specified key value or index.|
+| clear | Clears all storage |
+| key | Retrieves the key at a specified index. |
+| removeItem | Removes the specified key/value pair from storage.|
+
+Also there is a `length` property.
+
+```js
+localStorage.setItem("myString", "ABCDEF....");  // set
+var myString = localStorage.getItem("myString"); // returns "ABCDEF...."
+localStorage.removeItem("myString");             // remove myString
+localStorage.clear();                            // remove all
+localStorage.key(0);                             // returns "myString"
+var len = localStorage.length;                   // number of key-value pairs
+```
+
+Data stored in web storage is organized by root domain (e.g. rootdomain.com).
+
+#### Geolocation API
+
+```js
+var geoLocator = window.navigator.geolocation;
+var posOptions = {
+    enableHighAccuracy: true,
+    timeout: 45000
+};
+geoLocator.getCurrentPosition(successPosition, errorPosition, positionOptions);
+```
+
+Using watcher
+
+```js
+var watcher = geoLocator.watchPosition(successCallBack,errorCallback, positionOptions);
+// when you are done
+geoLocator.clearWatch(watcher);
+```
+
+Position options
+
+| Option             | Description |
+|--------------------|-------------|
+| enableHighAccuracy | This causes the method to be more resource intensive if set to true |
+| timeout            | How long it can take. Default is zero. A value of zero represents infinite |
+| maximumAge         | Use a cached result if available |
+
+### 1.5: Establish the scope of objects and variables
+
+#### Establishing the lifetime of variables and variable scope
+
+Variables are undefined until they are initialized.
+
+Variables are scoped and accessible depending on where they are declared. If they are inside a function, for example, they are local to the function.
+
+Passing parameters is the only way to make a local variable available in another function.
+
+
+Example of overriding global with local var can be found in var-global-override.html file.
+
+**Avoiding using the global namespace**
+
+Names of classes within a namespace must be unique. If multiple developers define a namespace with the same name, the JavaScript runtime can’t identify which namespace they intended to use.\
+This is why keeping your objects out of the global namespace is important.\
+One strategy to define unique namespace is to use domain name in reverse order.
+
+**Leveraging the this keyword**
+
+```js
+<script>
+// Here, "this" references the global namespace
+this.navigator.geolocation
+window.onload = function () {
+    //Here, "this" references the window object
+    this...
+    document.getElementById("aDiv").onclick = function(){
+        //Here, "this" references the DIV element
+        this...
+    }
+}
+</script>
+```
+
+The `this` keyword always refers to the object that contains the currently running code. That is its context.
+
+### 1.6: Create and implement objects and methods
+
+JavaScript is an object-oriented programming language (this is not exactly true, it supports functional programming paradigm too)
+
+Two types of objects exist in JavaScript: Native and Custom.
+
+You can create custom objects dynamically or by using prototypes.
+
+Everything in JavaScript is an object—even functions
+
+Prototypes provide for object definition reuse, whereas dynamic objects require
+attributes and methods defined for each use.
+
+Inheritance is achieved in JavaScript through the extension of prototypes
+
+**Native**
+
+Some native object are available stacitaly `Math`. Other as instance `Array`.
+
+Keyword `new` tells the runtime to allocate a new object of the type specified.
+
+The addition of multiple constructors is called an overloaded constructor.
+
+**Creating custom objects**
+
+```js
+function Author(firstName, lastName, gender)
+{
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.gender = gender;
+}
+
+Author.prototype = {
+    firstName:"",
+    lastName:"",
+    gender:"",
+    bookCount:0
+}
+```
+
+**Inheritance**
+
+There are many ways to make inheritance. Some of them.
+
+```js
+var popupBook = Object.create(
+    Book.protoType, 
+    {
+        hasSound: {
+            value: true
+        },
+        howPopUp: {
+            value: function showPop() {
+                //do logic to show a popup
+            }
+        }
+    }
+);
+```
+
+## 2. Implement program flow
+
+You need to provide users with certain website functions only under certain conditions, a concept known as program flow.
+
+Program flow can be **conditional**, **iterative**, or **behavioral**.
+
+..and  special type of program flow involves **exception handling** - run specific logic in the case of an error in the program. 
+
+### 2.1: Implement program flow
+
+`if…else` statement, the `switch` statement, and the `ternary` operator.
+
+When using the logical OR operator it evaluates the expressions from left to
+right until it finds one that’s true.
+
+**if...else**
+
+```js
+if(exp1, exp2, exp3...expn){
+   //true logic
+}else {
+   //false logic
+}
+```
+
+**switch**
+
+```js
+switch (color) {
+    case 'yellow':
+    case 'green':
+        alert('proceed');
+        break;
+    case 'red':
+        alert('stop');
+        break;
+    default:
+        alert('unknown condition');
+        break;
+}
+```
+ 
+ Omitting the break keyword will cause unexpected behavior.
+
+**Ternary**
+
+Shorthand mechanism for an `if` statement.
+
+```js
+<expression> ? <true part>: <false part>
+```
+
+**Working with arrays**
+
+```js
+var anArray = new Array();
+var anArray = new Array(5);
+var anArray = new Array('soccer', 'basketball', ..., 'badminton');
+var anArray = ['soccer', 'basketball', …,'badminton'];
+```
+
+Some array methods affect the Array object directly, whereas other methods return a new Array object. For the exam, you must understand when each case is applicable.
+
+`length` returns a array length
+
+`concat` returns a new array\
+`indexOf` return index of first occurrence, otherwise -1 (use === to compare)\
+`lastIndexOf` return index of last occurrence., otherwise -1 (use === to compare)\
+`join` return concentrated string or array elements delimited by delimiter\
+`reverse`\
+`sort`\
+`slice` returns shallow copy. Arguments are begin and end. The ending index isn’t included in the slice\
+`splice` change source array. Arguments are begin and number of items\
+
+Some examples
+
+```js
+var newArr = sports.splice(1, 3, 'golf', 'curling', 'darts');
+```

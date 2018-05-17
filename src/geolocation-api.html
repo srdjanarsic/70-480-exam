@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Geolocation API</title>
+    <script>
+        window.onload = function () {
+            var geoLocator = window.navigator.geolocation;
+            var posOptions = {
+                enableHighAccuracy: true,
+                timeout: 45000
+            };
+            geoLocator.getCurrentPosition(successPosition, errorPosition, posOptions);
+        }
+
+        function successPosition(pos) {
+            var sp = document.createElement("p");
+            sp.innerText = "Latitude: " + pos.coords.latitude + " Longitude: " + pos.coords.longitude;
+            document.getElementById("geoResults").appendChild(sp);
+        }
+
+        function errorPosition(err) {
+            var sp = document.createElement("p");
+            sp.innerText = "error: " + err.message; + " code: " + err.code;
+            document.getElementById("geoResults").appendChild(sp);
+        }
+    </script>
+    </script>
+</head>
+
+<body>
+    <div id="geoResults">
+        <p>Current Location is:</p>
+    </div>
+</body>
+
+</html>
