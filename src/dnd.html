@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .dropped {
+            width: 50%;
+            height: 50%;
+            position: relative;
+            top: 25%;
+            left: 25%;
+            background-color: black;
+        }
+
+        .over {
+            transform: scale(1.1);
+        }
+
+        .bucket {
+            width: 100px;
+            height: 100px;
+            margin: 10px 10px 10px 10px;
+            position: absolute;
+        }
+
+        .chip {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+        }
+
+        div:first-of-type {
+            background-color: red;
+        }
+
+        div:nth-of-type(2) {
+            background-color: green;
+            left: 25%;
+        }
+
+        div:nth-of-type(3) {
+            background-color: blue;
+            left: 50%;
+        }
+
+        #chip {
+            background-color: black;
+            width: 50px;
+            height: 50px;
+        }
+
+        .begin {
+            position: absolute;
+            left: 150px;
+            top: 150px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            initDrag();
+        }
+
+        function initDrag() {
+            var chip = document.getElementById("chip");
+            chip.addEventListener("dragstart", function (evt) {
+                evt.dataTransfer.dropEffect = "copy";
+                evt.dataTransfer.setData("Text", this.id);
+            });
+
+            addDnD("bucket1");
+            addDnD("bucket2");
+            addDnD("bucket3");
+
+            function addDnD(id) {
+
+                var b1 = document.getElementById(id);
+
+                b1.addEventListener("drag", function (evt) {
+                   console.log("Event: " + evt.type);
+                });
+                
+                b1.addEventListener("dragend", function (evt) {
+                   console.log("Event: " + evt.type);
+                });
+                
+                b1.addEventListener("dragenter", function (evt) {
+                   console.log("Event: " + evt.type);
+                });
+                
+                b1.addEventListener("dragleave", function (evt) {
+                   console.log("Event: " + evt.type);
+                });
+                
+                b1.addEventListener("dragover", function (evt) {
+                   console.log("Event: " + evt.type);
+                });
+                
+                b1.addEventListener("drop", function (evt) {
+                   console.log("Event: " + evt.type);
+                });
+
+
+                b1.addEventListener("dragenter", function (evt) {
+                    b1.classList.add("over");
+                    evt.preventDefault();
+                });
+                b1.addEventListener("dragleave", function (evt) {
+                    b1.classList.remove("over");
+                });
+                b1.addEventListener("dragover", function (evt) {
+                    evt.preventDefault();
+                });
+                b1.addEventListener("drop", function (evt) {
+                    evt.preventDefault();
+                    var data = event.dataTransfer.getData("Text");
+                    var d = document.getElementById(data);
+                    d.classList.remove("begin");
+                    d.classList.add("dropped");
+                    this.appendChild(d);
+                });
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="bucket1" class="bucket"></div>
+    <div id="bucket2" class="bucket"></div>
+    <div id="bucket3" class="bucket"></div>
+    <div id="chip" draggable="true" class="chip"></div>
+</body>
+
+</body>
+
+</html>

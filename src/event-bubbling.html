@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    #outer {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+    }
+
+    #middle {
+        width: 50%;
+        height: 50%;
+        position: relative;
+        top: 0%;
+        left: 25%;
+        background-color: green;
+    }
+
+    #inner {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: blue;
+    }
+</style>
+<script>
+    window.onload = function () {
+        document.getElementById("outer").addEventListener("click", outerDivClick, false);
+        document.getElementById("middle").addEventListener("click", middleDivClick, false);
+        document.getElementById("inner").addEventListener("click", innerDivClick, false);
+        document.getElementById("clearButton").addEventListener("click", clearList);
+
+        document.getElementById("inner").addEventListener("click", yellowBoxClick);
+    }
+
+    function outerDivClick() {
+        appendText("outer Div Clicked");
+    }
+
+    function middleDivClick() {
+        appendText("middle Div Clicked");
+    }
+
+    function innerDivClick() {
+        appendText("inner Div Clicked");
+    }
+
+    function appendText(s) {
+        var li = document.createElement("li");
+        li.innerText = s;
+        document.getElementById("eventOrder").appendChild(li);
+    }
+
+    function clearList() {
+        var ol = document.createElement("ol");
+        ol.id = "eventOrder";
+        document.getElementById("bod").replaceChild(ol, document.getElementById("eventOrder"));
+    }
+
+
+    function yellowBoxClick() {
+        appendText("Client X: " + window.event.clientX + " ClientY: " + window.event.clientY);
+        appendText("offsetX: " + window.event.offsetX + " offsetY: " + window.event.offsetY);
+        appendText("screen X: " + window.event.screenX + " screenY: " + window.event.screenY);
+    }
+    
+</script>
+
+<body id="bod">
+    <div id="outer">
+        <div id="middle">
+            <div id="inner">
+            </div>
+        </div>
+    </div>
+    <ol id="eventOrder"> </ol>
+    <button type="button" id="clearButton">Clear</button>
+</body>
+
+</html>

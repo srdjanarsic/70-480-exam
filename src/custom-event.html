@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 1. Create event
+        var myEvent = new CustomEvent(
+            "anAction", {
+                detail: {
+                    description: "a description of the event",
+                    timeofevent: new Date(),
+                    eventcode: 2
+                },
+                bubbles: true,
+                cancelable: true
+            }
+        );
+
+        // 2. add listener
+        document.addEventListener("anAction", customEventHandler);
+
+        // 3. dispatch event
+        document.dispatchEvent(myEvent);
+
+        function customEventHandler() {
+            alert(window.event.detail.description);
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Other</title>
+    <script>
+        window.onload = function () {
+            focusExample()
+            cancelEventExample()
+            batteryExample();
+        }
+
+        function batteryExample() {
+            // We get the initial value when the promise resolves ...
+            navigator.getBattery().then(function (battery) {
+                console.log(battery.level);
+                // ... and any subsequent updates.
+                battery.onlevelchange = function () {
+                    console.log(this.level);
+                };
+            });
+        }
+
+        function cancelEventExample() {
+            var a = document.getElementById("aLink");
+            a.onclick = OverrideAnchorClick;
+        }
+
+        function OverrideAnchorClick(event) {
+            //do custom logic for the anchor
+            //window.event.returnValue = false;
+            //or
+            //return false;
+            event.preventDefault(); // USE THIS!!!
+        }
+
+        function focusExample() {
+            document.getElementById("firstNameText").focus();
+            document.getElementById("firstNameText").addEventListener("blur", function () {
+                if (this.value.length < 5) {
+                    document.getElementById("ruleViolation").innerText = 'First Name is required to be 5 letters.';
+                    document.getElementById("ruleViolation").style.color = 'red';
+                    this.focus();
+                }else{
+                    document.getElementById("ruleViolation").innerText ='';
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <a id="aLink" href="http://www.google.com">click me</a>
+    <input type="text" id="firstNameText"></input>
+    <p id="ruleViolation"></p>
+</body>
+
+</html>

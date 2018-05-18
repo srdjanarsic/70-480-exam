@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-2.x-git.js" type="text/javascript"></script>
+    <script>
+        window.onload = function () {
+            $("#searchButton").click(function () {
+                var searchPath;
+                $("#searchResults").empty();
+                switch ($("#searchFruit").val()) {
+                    case"long":
+                        searchPath = "data/long.xml";
+                        break;
+                    case"round":
+                        searchPath = "fruit/round.xml";
+                        break;
+                    case"orange":
+                        searchPath = "fruit/orange.xml";
+                        break;
+                    default:
+                        InvalidSearchTerm();
+                }
+
+                $.ajax({
+                    url: searchPath,
+                    cache: false,
+                    dataType: "xml",
+                    success: function (data) {
+                        $(data).find("fruit").each(
+                            function () {
+                                $("#searchResults").append($(this).text());
+                                $("#searchResults").append("<br/>");
+                            })
+                    }
+                });
+            });
+        }
+
+        function InvalidSearchTerm() {
+            $("#searchResults").empty();
+            $("#searchResults").append("Invalid Search Term. Please try again.");
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        Enter search term:
+        <input type="text" id="searchFruit" value="long"/>
+        <input type="button" id="searchButton" value="Search"/>
+    </div>
+    <div>
+        <h1>Results:</h1>
+    </div>
+    <div id="searchResults">
+    </div>
+</body>
+
+</html>

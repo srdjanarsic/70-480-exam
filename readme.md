@@ -625,3 +625,338 @@ Some examples
 ```js
 var newArr = sports.splice(1, 3, 'golf', 'curling', 'darts');
 ```
+
+### 2.2: Raise and handle an event
+
+#### Hook up an event
+
+You can hook up an event in three ways
+
+* Declare it directly in the HTML markup.
+* Assign the function to the event property of the element object through JavaScript.
+* Use the newer add and remove methods on the element object to associate event handler.
+
+```js
+// 1st way - Declarative event handling
+<body onload="onloadHandler();">
+
+// 2nd way - Assignment event handling
+window.onload = onloadHandler();
+
+// 3th - addEventListener and removeEventListener methods
+addEventListener(eventName, eventFunction, optionalCascadeRule);
+```
+
+```js
+window.addEventListener("load", onloadHandler, false);
+window.removeEventListener("load", onloadHandler2, false);
+```
+
+#### Using anonymous functions
+
+When using anonymous function we can't remove listener function.
+
+#### Canceling an event
+
+```js
+// depreciated
+window.event.returnValue = false; 
+// ??
+return false;
+// recommended recommended recommended
+evt.preventDefault();
+```
+
+#### Declaring and handling bubbled events
+
+```js
+addEventListener(eventName, eventFunction, optionalCascadeRule);
+```
+
+`optionalCascadeRule=true` - reversed the order to be cascading instead of bubbling
+
+#### Handling DOM events
+
+**Change event**
+
+| Event    | Description |
+|----------|-------------|
+| change   | Occurs on text-based inputs and others such as the range|
+
+**Focus event**
+
+| Event     | Description |
+|-----------|-------------|
+| focus     | Raised when the element receives the focus |
+| blur      | Raised when the element loses the focus |
+| focusin   | Raised just before an element receives the focus |
+| focusout  | Raised just before an element loses the focus |
+
+**Keyboard events**
+
+| Event     | Description |
+|-----------|-------------|
+| keydown   | Raised when a key is pushed down |
+| keyup     | Raised when a key is released |
+| keypress  | Raised when a key is completely pressed |
+
+Event object has `altKey`, `ctrlKey`, `shiftKey`, `keyCode` so we can determine some of the control keyboards buttons if they are down.
+
+**Mouse events**
+
+| Event     | Description |
+|-----------|-------------|
+| click             | Raised when the mouse performs a click
+| dblclick          | Raised when the mouse performs a double-click
+| mousedown         | Raised when the mouse button is pressed down
+| mouseup           | Raised when the mouse button is released
+| mouseenter        | Raised when the mouse cursor enters the space of an HTML element
+| mouseleave        | Raised when the mouse cursor leaves the space of an HTML element
+| mousemove         | Raised when the mouse cursor moves over an HTML element
+| mouseover and mouseout  | similar to mouseenter/mouseleave except these bubbles to children ...
+
+| Event     | Description |
+|-----------|-------------|
+| clientX   | The x or horizontal position of the mouse cursor relative to the viewport boundaries |
+| clientY   | The y or vertical position of the mouse cursor relative to the viewport boundaries |
+| offsetX   | The x or horizontal position of the mouse cursor relative to the target element |
+| offsetY   | The y or vertical position of the mouse cursor relative to the target element |
+| screenX   | The x or horizontal position of the mouse cursor relative to the upper-left corner of the
+screen |
+| screenY   | The y or vertical position of the mouse cursor relative to the upper-left corner of the screen |
+
+**Drag-and-drop functionality**
+
+| Event      | Description |
+|------------|-------------|
+| drag       | Raised continuously while the element is being dragged |
+| dragend    | Raised on the element being dragged when the mouse is released to end the drop operation |
+| dragenter  | Raised on a target element when a dragged element is dragged into its space |
+| dragleave  | Raised on a target element when a dragged element leaves its space |
+| dragover   | Raised continuously on the target element while the dragged element is being dragged over it |
+| dragstart  | Raised on the element being dragged when the drag operation is beginning |
+| drop       | Raised on the target element when the dragged element is relea |
+
+Use `event.dataTransfer` to transfer data\
+
+```js
+event.dataTransfer.setData("text", ev.target.id);
+event.dataTransfer.getData("text");
+// define drag image
+var img = new Image(); 
+img.src = 'example.gif'; 
+ev.dataTransfer.setDragImage(img, 10, 10);
+// drag effect 
+ev.dataTransfer.dropEffect = "copy";
+```
+
+Note: For elements that don’t support drag-and-drop functionality by default, the default event
+mechanism must be canceled. This is why event.returnValue is set to false.
+
+**Creating custom events**
+
+```js
+// 1. Create event
+var myEvent = new CustomEvent(
+    "anAction",
+    {
+        detail: { 
+            description: "a description of the event",
+            timeofevent: new Date(),
+            eventcode: 2 
+        },
+        bubbles: true,
+        cancelable: true
+    }
+);
+
+// 2. add listener
+document.addEventListener("anAction", customEventHandler);
+
+// 3. dispatch event
+document.dispatchEvent(myEvent);
+```
+
+### 2.3: Implement exception handling
+
+That a program can deal with errors and unknown conditions is critical in any software development. JavaScript is no exception and provides structured error-handling constructs to deal with these situations
+
+Note: The correctable errors should allow the script to continue successfully.
+
+Exception object properties
+
+| Event      | Description |
+|------------|-------------|
+| message    | A textual description of the error that occurred |
+| number     | A numeric error code |
+| name       | The name of the exception object |
+
+The concept of raising an error is also known as **throwing an exception**. 
+
+`Error` is used to create the exception. 
+
+throw new Error(25, "Invalid X coordinate");
+
+Creating custom error
+
+```js
+class CustomError extends Error {
+    constructor(errId, ...params) {
+        // Pass remaining arguments (including vendor specific ones) to parent constructor
+        super(...params);
+
+        // Maintains proper stack trace for where our error was thrown (only available on V8)
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, CustomError);
+        }
+
+        this.errId = errId;
+    }
+}
+```
+
+###  2.4: Implement a callback
+
+```js
+window.onload = function () {
+    WillCallBackWhenDone(MyCallBack, 3, 3);
+}
+
+function WillCallBackWhenDone(f, a, b) {
+    var r = a * b;
+    f(r);
+}
+
+function MyCallBack(result) {
+    alert(result);
+}
+```
+
+Knowing what parameters the callback function will receive is important so that they can be specified in the parameter list.
+
+#### WebSocket API
+
+full bidirectional protocol
+
+```js
+wsConnection= new WebSocket('ws://studygroup.70480.com', ['soap', 'xmpp']);
+```
+
+The WebSocket constructor accepts two parameters
+
+* The URL of the server-side socket to connect to, which is always prefixed with ws or wss for secure WebSocket connections
+* An optional list of subprotocols
+
+**Events:**\
+open, error, close, message\
+**Methods**\
+send(), close(),\
+**Properties**\
+binaryType (blob, arraybuffer)\
+bufferedAmount\
+extensions?\
+onclose\
+onerror\
+onmessage\
+onopen\
+protocol\
+readyState\
+url
+
+
+```js
+wsConnection.readyState == WebSocket.OPEN
+// OPEN The connection is open.
+// CONNECTING The connection is in the process of connecting - not ready yet - default.
+// CLOSING The connection is in the process of being closed.
+// CLOSED The connection is closed
+wsConnection.close();
+```
+
+#### Making webpages dynamic with jQuery and AJAX
+
+```js
+$.ajax({
+    url: searchPath,
+    cache: false,
+    dataType: "xml",
+    type: "GET", // || POST
+    //data: "Data to send to server"...
+    success: function (data) {
+        // ....
+    },
+    error: function (xhr, textStatus, errorThrown) {
+        // ...
+    }
+});
+```
+
+`url` - The first parameter being set is the url that the AJAX call will be requesting. For security reasons, to prevent cross-site scripting, this URL must be within the same domain as the webpage itself.
+
+`cache` - is optional and indicates whether the call can use a cached copy. The third parameter.
+
+`datatype` - indicates the expected data type, which could be XML or JavaScript Object Notation (JSON), for example.
+
+`success` property parameter takes a function that the results of the AJAX calls should be passed into for the webpage to do some work with.
+
+`error` property takes functions so that any error conditions can be handled gracefully.
+
+`error` function gets three arguments
+
+* The HTTP request itself
+* The HTTP error number (such as 404)
+* The error text (such as Not Found)
+
+#### jQuery
+
+jQuery is one of the toolkits available to solve cross-browser compatibility.
+
+```js
+$('#searchButton').click(function () {
+    // ....
+}
+```
+
+#### Implementing a callback with an anonymous function
+
+In JavaScript, functions are considered objects and are often noted as first-class citizens. 
+
+A function is considered anonymous when it doesn’t have a name. 
+
+```js
+function (n,n,…,n) { body };
+```
+
+#### Using the this pointer (jQuery)
+
+The this pointer is a special object provided by the jQuery framework. When running selections against the DOM using jQuery, this refers to the object that it finds or the collection of objects that it finds.
+
+### 2.5: Create a web worker process
+
+Web workers present a way of developing multithreaded JavaScript applications.
+
+Getting started with a web worker process
+
+```js
+var webWorker = new Worker("workercode.js");
+webWorker.postMessage("");
+webWorker.onmessage = function(evt) {...}
+webWorker.terminate();
+
+//workercode.js
+onmessage = function(e){
+    // do some work ...
+    self.postMessage(result);
+}
+```
+
+`self` keyword gives access to the global namespace within the worker process.
+
+
+| Event       | Description |
+|-------------|-------------|
+| postMessage | Starts the worker process. |
+| terminate   | Stops the worker process from continuing |
+| onmessage   | Message from worker |
+| onerror     | error handler - when occurs in the worker thread (message,filename,lineno)|
+
