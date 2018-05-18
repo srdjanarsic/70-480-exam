@@ -626,6 +626,97 @@ Some examples
 var newArr = sports.splice(1, 3, 'golf', 'curling', 'darts');
 ```
 
+Implementing special types of arrays
+
+A `queue` is essentially a first-in-first-out type of collection.\
+A `stack` is a last-in-first-out type of collection.
+
+The `pop` and `push` methods provide stack functionality.
+
+```js
+var sports = new Array();
+// push
+sports.push('soccer', 'basketball', 'hockey');
+sports.push('football');
+// pop
+var nextSport = sports.pop();
+// shift
+sports.shift();
+// unshift
+sports.unshift('one', 'two');
+```
+
+LIFO
+
+```js
+var sports = new Array();
+sports.push('soccer');
+sports.push('basketball');
+sports.push('hockey');
+var get1 = sports.shift();
+sports.push('golf');
+var get2 = sports.shift();
+```
+
+**Using advanced array methods**
+
+These methods all involve the use of a `callback`.
+
+`every` - all must return true
+`some` - only one must return true
+`forEach` - apply logicto each array element
+`filter` - filter method provides a way to remove items for an array
+`map` method enables you to replace values in the array
+`reduce`,`reduceRight` - recursivly goes through array. returns result of previous callback to next one.
+
+```js
+var evenNumbers = new Array(0, 2, 4, 6, 8, 9, 10, 12);
+var allEven = evenNumbers.every(evenNumberCheck, this);
+var hasEven = evenNumbers.some(evenNumberCheck, this);
+//cb
+function evenNumberCheck(value, index, array) {
+   return (value % 2) == 0;
+}
+```
+
+```js
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var factorials = numbers.reduce(factorial);
+function factorial(previous, current) {
+    return previous * current;
+}
+```
+
+Some advanced functions enable you to change the source array, whereas others don’t. This is an important aspect to keep clear.
+
+**Implementing iterative control flow**
+
+`for` - loop is useful in cases in which a block of code should run based on a deterministic number of items.
+`for...in` - loop is a method for iterating over an object’s properties
+`while` - loop lets you run a code block until some condition evaluates to false
+`do...while` - dothe same, except ir runs once and condition is on the bottom.
+```js
+// for
+for(counter;expression;counter-increment)
+{
+    //code to run
+}
+// for...in
+for (var prop in person) {
+   document.write(prop);
+}
+// while
+while(expression){
+    ///code block
+}
+// do while
+do{
+    //code
+}while(expression)
+```
+
+Two mechanisms enable you to short-circuit a loop. The `break` keyword exits the current loop completely, whereas the `continue` keyword breaks out of the code block and continues to the next iteration of the loop.
+
 ### 2.2: Raise and handle an event
 
 #### Hook up an event
@@ -959,4 +1050,3 @@ onmessage = function(e){
 | terminate   | Stops the worker process from continuing |
 | onmessage   | Message from worker |
 | onerror     | error handler - when occurs in the worker thread (message,filename,lineno)|
-
