@@ -24,7 +24,7 @@
 **Semantic** elements provide a stronger semantic definition to your webpages.\
 **Div** for styling and it allows more dynamic capabilities in page layout.\
 **Table** for more  static layouting.\
-**Difference** between semantic elements and `<div>` is that `<div>` is inable to impart standard semantic meaning to each section.
+**Difference** between semantic elements and `<div>` is that `<div>` is unable to impart standard semantic meaning to each section.
 
 |  element    | description |
 |-------------|-------------|
@@ -183,6 +183,7 @@ HTML5 `video` element
 ```html
 <video src="video.mp4" controls poster="poster.jpg" width="800" height="600"></video>
 ```
+
 Video attributes
 
 | Attribute        | Description |
@@ -253,7 +254,7 @@ Drawing lines
 | Method      | Description  |
 |-------------|--------------|
 | beginPath   | Resets/begins a new drawing path |
-| moveTo      | Moves the context to the point set in the beginPath method |
+| moveTo      | Moves the context to the new point|
 | lineTo      | Sets the destination end point for the line |
 | stroke      | Strokes the line, which makes the line visible |
 | lineWidth   | Width of line |
@@ -305,7 +306,7 @@ ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
 // add gradiend point
 addColorStop(offset, color);
 // example
-var gradient = ctxt.createRadialGradient(200, 200,5, 250, 250,100);
+var gradient = ctxt.createRadialGradient(200, 200, 5, 250, 250, 100);
 gradient.addColorStop(0, "Red");
 gradient.addColorStop(.5, "Orange");
 gradient.addColorStop(1, "Blue");
@@ -314,6 +315,7 @@ ctxt.fillStyle = gradient;
 ```
 
 Pattern
+
 ```js
 ctx.createPattern(image, repetition);
 //image: repeat, repeat-x, repeat-y, no-repeat
@@ -434,7 +436,7 @@ geoLocator.getCurrentPosition(successPosition, errorPosition, positionOptions);
 Using watcher
 
 ```js
-var watcher = geoLocator.watchPosition(successCallBack,errorCallback, positionOptions);
+var watcher = geoLocator.watchPosition(successCallBack, errorCallback, positionOptions);
 // when you are done
 geoLocator.clearWatch(watcher);
 ```
@@ -456,7 +458,6 @@ Variables are undefined until they are initialized.
 Variables are scoped and accessible depending on where they are declared. If they are inside a function, for example, they are local to the function.
 
 Passing parameters is the only way to make a local variable available in another function.
-
 
 Example of overriding global with local var can be found in var-global-override.html file.
 
@@ -664,10 +665,10 @@ These methods all involve the use of a `callback`.
 
 `every` - all must return true
 `some` - only one must return true
-`forEach` - apply logicto each array element
+`forEach` - apply logic to each array element
 `filter` - filter method provides a way to remove items for an array
 `map` method enables you to replace values in the array
-`reduce`,`reduceRight` - recursivly goes through array. returns result of previous callback to next one.
+`reduce`,`reduceRight` - recursively goes through array. returns result of previous callback to next one.
 
 ```js
 var evenNumbers = new Array(0, 2, 4, 6, 8, 9, 10, 12);
@@ -988,11 +989,11 @@ $.ajax({
 
 `datatype` - indicates the expected data type, which could be XML or JavaScript Object Notation (JSON), for example.
 
-`success` property parameter takes a function that the results of the AJAX calls should be passed into for the webpage to do some work with.
+`success` - property parameter takes a function that the results of the AJAX calls should be passed into for the webpage to do some work with.
 
-`error` property takes functions so that any error conditions can be handled gracefully.
+`error` - property takes functions so that any error conditions can be handled gracefully.
 
-`error` function gets three arguments
+`error` - function gets three arguments
 
 * The HTTP request itself
 * The HTTP error number (such as 404)
@@ -1050,3 +1051,363 @@ onmessage = function(e){
 | terminate   | Stops the worker process from continuing |
 | onmessage   | Message from worker |
 | onerror     | error handler - when occurs in the worker thread (message,filename,lineno)|
+
+
+#### Using web worker
+
+Example files `web-worker-without.html`, `web-worker.html`, `webworker/CalculateWorker.js`.
+
+#### Web worker limitations
+
+* The `postMessage` accepts only `string` type.
+* Be aware of number of workers and impact they reflect on performance.
+* No DOM access
+* Subworkers - workers are able to open its worker
+
+#### Run worker multiple times
+
+```js
+var work = new Worker("worker.js");
+setInterval(function(){
+    work.postMessage("");
+},3000);
+```
+
+## 4. Access and secure data
+
+Most web applications require static or dynamic data.
+
+### 3.1 Validate user input by using HTML
+
+You must ensure that user safety and privacy are protected as best as possible.
+
+#### Choosing input controls
+
+Example file `input-controls.html`
+
+Attributes
+* `text` - maxlength
+* `textarea` - rows, cols
+* `url`
+* `password` - can't set default text to it via JavaScript
+* `email`
+* `checkbox`
+* `radio` - use `name` to group radios together
+* `range` - min, max, value
+* `button`
+* `reset`
+* `submit`
+
+Element `button` also supports type (button, reset, submit).
+
+```html
+<button type="button" style="border-radius: 15px;">
+    <p>Something exciting lies behind this button</p>
+    <img src=".\myimage.jpg"/>
+</button>
+```
+
+#### Implementing content attributes
+
+* `read-only`
+* `spellcheck` =true
+* `pattern` - regular expression patter that field need to match
+* `placeholder`
+* `required`
+
+### 3.2 Validate user input by using JavaScript
+
+Regular expressions
+
+| Sympbol | Description  |
+|---------|--------------|
+| ^       | Beginning of string |
+| $       | End of string |
+| .       | Any character |
+| [A-Z]   | Match alphabet A to Z use [A-Za-z] fro case insensitive |
+| \d      | Any numerical char |
+| +       | Preceding char must match at least once |
+| *       | Preceding might or might not match |
+| [^]     | When included in character set denotes a negation |
+| ?       | Preceding char is optional |
+| \w      | Any alphanumeric including underscore |
+| \       | Escape for special chars |
+| \s      | Match space |
+| {n}     | Exact number of occurrences |
+
+#### Evaluating regular expressions in JavaScript
+
+```js
+/<regular-expression>/
+// same as
+new RexExp('<regular-expression>');
+```
+
+```js
+regexp.test('string ...'); // returns true/false
+regexp.exec('string ...'); // returns array or parts that matches regexp or null
+```
+
+String object has `search` (returns index) and `match` (return part).
+
+Methods that accept regexp: indexOf, split, replace.
+
+#### Build in functions
+
+`isNaN`
+`isFinite`
+
+#### Prevent code injections
+
+As a web developer, you need to ensure that all inputs is scrubbed of script elements. For example, don't allow to `<>` be entered in input field.
+
+Don't use `eval` !
+
+**iFrame**
+
+`sandbox` attribute
+
+* `""` - most secure applies all restrictions
+* `allow-same-origin`
+* `allow-top-navigation`
+* `allow-forms`
+* `allow-scripts`
+
+### 3.3 Consume data
+
+#### Consume JSON and XML data
+
+JSON and XML are common formats
+
+#### XMLHttpRequest object
+
+Events: `onreadystatechanged`, `ontimeout`
+
+Methods: `abort`, `getAllResponseHeaders`, `getResponseHeader`, `send`, `setRequestHeader`, `open`
+
+Properties: `readyState,` `response`, `responseBody`, `responseText`, `responseType`, `responseXml`, `status`, `statusText`, `timeout`, `withCredentials`
+
+```js
+var xReq = new XMLHttpRequest();
+xReq.open("GET", "myJSONData.json", true);
+xReq.timeout = 2000;
+xReq.ontimeout = function () {
+    $("#results").text("Request Timed out");
+}
+xReq.onreadystatechange = function (e) {
+    if (xReq.readyState == 4) {
+        if (xReq.status = "200") {
+            $("#results").text(xReq.response);
+        } else {
+            ("#results").text(xReq.statusText);
+        }
+    }
+}
+xReq.send(null);
+```
+
+```js
+open(method, url, async, username, password);
+```
+
+A timeout value should always be specified.
+
+### 3.4 Serialize, deserialize and transmit data
+
+* `URL.createObjectURL`
+* JSON.stringify, JSON.parse
+* jQuery.serialize - serialize all input fields (mush have `name` attribute) into query string
+
+## 4. Use CSS3 in applications
+
+#### Text properties
+
+* `color` hex, nama, rgb, rgba
+* `font-weight` 100-900 lighter, normal, bold, bolder
+* `font-style` italic
+* `font-family` Arial
+* `text-align`
+* `text-indent`
+* `letter-spacing`
+* `word-spacing`
+* `hypens` - none, auto, manual
+
+
+
+```css
+@font-face {
+    font-family: "My Nicer Font";
+    src: url('fonts/my_woff_font.eot');
+    src: url('fonts/my_woff_font.woff');
+}
+p {
+    font-family: 'My Nicer Font';
+}
+```
+
+#### Box properties
+
+**Size**
+
+`width, height`
+
+**Bordering**
+
+`border-style`, `border-color`, `border-width`
+
+**Padding and margins**
+
+`padding`, `margin`
+
+#### Alter graphic effect
+
+`opacity`
+
+`background-image`\
+`background-image-size`\
+`background-image-repeat`\
+`background-image-clip`\
+`background-image-position-x`\
+`background-image-position-y`
+
+```css
+background:linear-gradient(20deg, white, black) 
+```
+
+#### Shadow
+
+```css
+/* box */
+box-shadow: h-shadow v-shadow blur spread color inset;
+/* example */
+box-shadow: 10px 10px 5px 50px red;
+
+/* text */
+text-shadow: h-shadow v-shadow blur color;
+/* example */
+box-shadow: 10px 10px 5px red;
+```
+
+#### Clip
+
+```css
+clip: rect(50px, 50px, 50px, 50px);
+```
+
+### Applying styles and change an element's position
+
+`position: static, fixed, relative, absolute`
+
+`float: left, right`
+
+### 4.3 Flexbox
+
+#### Flexible box model
+
+Example file `flexbox.html`
+
+#### Multi-column layout
+
+* `column-count`
+* `column-gap`
+* `column-rule-color`
+* `column-rule-style`
+* `column-rule-width`
+* `column-rule` - shorthand for previous three
+* `column-span` - how many columns element takes
+* `column-width`
+* `columns` - shorthand for columns number (defined by its width)
+ 
+```css
+#column-layout {
+    width:80%;
+    height: 400px;
+    border: 1px solid black;
+    column-count: 5;
+    column-rule-color: black;
+    column-rule-style: dashed;
+    column-rule-width: 2px;
+    column-gap: 5px;
+ }
+ ```
+
+#### Grid layout
+
+Example file `grid.html`
+
+### 4.4 Create animated and adaptive UI
+
+* `transition-property`
+* `transition-duration`
+* `transition-delay`
+* `transition-timing-function` - ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier
+* `transition` - transition shorthand - allow as to specify multiple coma separated properties
+
+#### 2D and 3D transformation
+
+```css
+transform: scale(2) rotateX(30deg) translate(50px, 50px);
+```
+
+```css
+transform: rotate3d(1, 1, 1, 30deg);
+```
+
+#### Media query
+
+```css
+@media screen and (max-width: 600px){
+    p{
+        color: green;
+    }
+}
+@media screen and (min-width: 601px) and (max-width:900px){
+    p{
+        color: blue;
+    }
+}
+```
+
+#### Hiding or disabling
+
+```css
+visibility: hidden; /* only hide */
+display: none;      /* remove from layout */
+```
+
+```js
+$("disableMe").attr("disable", "disable");
+```
+
+### 4.5 Find elements using selectors and jQuery
+
+```css
+div{}              /* element */
+myDiv{}           /* div */
+.className{}       /* class name */
+/*attribute ....*/
+input[required]    /* has attribute*/
+input[type="text"] /* type == text*/
+input[class~="my-class,my-class2"] /*contain one of comma separated classes*/
+input[type^="begin-width"]
+input[type$="ends-width"]
+input[type*="contains"]
+```
+
+#### Pseudo classes
+
+```
+// pseudo-classes
+:link, :visited, :hover
+:checked
+:required
+:enabled, :disabled
+
+// pseudo-elements
+:first-child
+:first-letter
+:before, :after
+:first-line
+```
+
+THE END :)

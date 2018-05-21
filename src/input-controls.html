@@ -1,0 +1,186 @@
+<form>
+    <div>
+        <hgroup>
+            <h1>Customer Satisfaction is #1</h1>
+            <h2>Please take the time to fill out the following survey</h2>
+        </hgroup>
+    </div>
+    <table>
+        <tr>
+            <td>Your Secret Code:
+            </td>
+            <td>
+                <input type="text" readonly="readonly" value="00XY998BB" />
+            </td>
+        </tr>
+        <tr>
+            <td>Password:
+            </td>
+            <td>
+                <input type="password" />
+            </td>
+        </tr>
+        <tr>
+            <td>First Name:
+            </td>
+            <td>
+                <input type="text" id="firstNameText" maxlength="50" />
+            </td>
+        </tr>
+        <tr>
+            <td>Last Name:
+            </td>
+            <td>
+                <input type="text" id="lastNameText" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Your favorite website:
+            </td>
+            <td>
+                <input type="url" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Your age in years:
+            </td>
+            <td>
+                <input type="number" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What colors have you colored your hair:
+            </td>
+            <td>
+                <input type="checkbox" id="chkBrown" checked="checked" /> Brown
+                <input type="checkbox" id="chkBlonde" /> Blonde
+                <input type="checkbox" id="chkBlack" /> Black
+                <input type="checkbox" id="chkRed" /> Red
+                <input type="checkbox" id="chkNone" /> None
+            </td>
+        </tr>
+        <tr>
+            <td>Rate your experience:
+            </td>
+            <td>
+                <input type="radio" id="chkOne" name="experience" /> 1 - Very Poor
+                <input type="radio" id="chkTwo" name="experience" /> 2
+                <input type="radio" id="chkThree" name="experience" /> 3
+                <input type="radio" id="chkFour" name="experience" /> 4
+                <input type="radio" id="chkFive" name="experience" checked="checked" /> 5 - Very Good
+            </td>
+        </tr>
+        <tr>
+            <td>How likely would you recommend the product:
+            </td>
+            <td>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <input type="range" min="1" max="25" value="20" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Other Comments:
+            </td>
+            <td>
+                <textarea id="otherCommentsText" rows="5" cols="20" spellcheck="true">
+                </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email address:
+            </td>
+            <td>
+                <input type="email" placeholder="me@mydomain.com" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Color:
+            </td>
+            <td>
+                <input type="color" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date:
+            </td>
+            <td>
+                <input type="date" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Datetime:
+            </td>
+            <td>
+                <input type="datetime" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Month:
+            </td>
+            <td>
+                <input type="month" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tel:
+            </td>
+            <td>
+                <input type="tel" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Week:
+            </td>
+            <td>
+                <input type="week" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Time:
+            </td>
+            <td>
+                <input type="time" />
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Pattern:
+            </td>
+            <td>
+                <input required type="text" pattern="^A" title="This does not start with A" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Spellchecker:
+            </td>
+            <td>
+                <textarea id="aaa" rows="5" cols="20" spellcheck="true">
+                </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" />
+                <input type="reset" />
+                <input type="button" value="Cancel" />
+            </td>
+        </tr>
+    </table>
+</form>

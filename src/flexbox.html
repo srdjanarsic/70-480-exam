@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flexbox</title>
+    <style>
+        #flexbox1 {
+            display: flex;
+            flex-direction:row-reverse;
+            flex-wrap: wrap;
+            border: 1px solid black;
+            margin-top: 100px;
+            min-height: 15px;
+            width: 200px;
+        }
+
+        #flexbox1>div:nth-child(1) {
+            background-color: green;
+            flex: 2;
+        }
+
+        #flexbox1>div:nth-child(2) {
+            background-color: yellow;
+            flex: 1;
+        }
+
+        #flexbox1>div:nth-child(3) {
+            background-color: red;
+            flex: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="flexbox1">
+        <div>1111111111111</div>
+        <div>222222222222</div>
+        <div>3333333333</div>
+        <div>4444444</div>
+        <div>55555</div>
+    </div>
+</body>
+
+</html>
